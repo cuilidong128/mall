@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,21 +12,22 @@
         <module name="elk-mall-expands" />
         <module name="elk-mall-logging" />
         <module name="elk-mall-message" />
-        <module name="elk-mall-module" />
         <module name="elk-mall-starter" />
+        <module name="elk-mall-system" />
         <module name="elk-mall-test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="elk-mall-common" target="1.7" />
-      <module name="elk-mall-config" target="1.5" />
-      <module name="elk-mall-expands" target="1.5" />
-      <module name="elk-mall-logging" target="1.5" />
-      <module name="elk-mall-message" target="1.5" />
-      <module name="elk-mall-module" target="1.5" />
-      <module name="elk-mall-starter" target="1.5" />
-      <module name="elk-mall-test" target="1.5" />
-      <module name="mall" target="1.5" />
+      <module name="elk-mall-config" target="1.8" />
+      <module name="elk-mall-expands" target="1.8" />
+      <module name="elk-mall-logging" target="1.8" />
+      <module name="elk-mall-message" target="1.8" />
+      <module name="elk-mall-module" target="1.8" />
+      <module name="elk-mall-starter" target="1.8" />
+      <module name="elk-mall-system" target="1.8" />
+      <module name="elk-mall-test" target="1.8" />
+      <module name="mall" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
