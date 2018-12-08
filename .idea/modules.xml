@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/elk-mall-common/elk-mall-common.iml" filepath="$PROJECT_DIR$/elk-mall-common/elk-mall-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/mall.iml" filepath="$PROJECT_DIR$/mall.iml" />
     </modules>
   </component>
