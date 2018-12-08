@@ -8,8 +8,18 @@
     <artifactId>elk-mall</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <modules>
         <module>elk-mall-common</module>
+        <module>elk-mall-config</module>
+        <module>elk-mall-expands</module>
+        <module>elk-mall-logging</module>
+        <module>elk-mall-message</module>
+        <module>elk-mall-starter</module>
+        <module>elk-mall-test</module>
+        <module>elk-mall-module</module>
     </modules>
 
 

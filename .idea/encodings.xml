@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-expands" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-logging" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-message" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-module" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/elk-mall-test" charset="UTF-8" />
+  </component>
+</project>
