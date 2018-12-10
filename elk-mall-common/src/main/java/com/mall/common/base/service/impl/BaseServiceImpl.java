@@ -12,10 +12,12 @@ import com.mall.common.db.DynamicDataSource;
 import com.mall.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Record, Example> {
-    public Mapper mapper;
+    @Autowired
+    Mapper mapper;
 
     @Override
     public int countByExample(Example example) {
