@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: dev,redis
 ###指定扫描日志配置 redis,activemq
 # debug: true
 logging:

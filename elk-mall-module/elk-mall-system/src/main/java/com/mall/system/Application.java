@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.time.LocalDateTime;
 
 @EnableRetry
+@EnableCaching
 @EnableScheduling
 @SpringBootApplication
 @MapperScan(value = "com.mall.system.dao")
@@ -23,7 +25,6 @@ public class Application extends SpringBootServletInitializer {
     private static final Logger lg = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        lg.info("Framework start at 【{}】", LocalDateTime.now());
         SpringApplication.run(Application.class, args);
     }
 

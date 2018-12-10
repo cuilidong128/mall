@@ -25,8 +25,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-//@Configuration
-//@EnableCaching
+@Configuration
+@EnableCaching
 public class RedisConfiguration extends CachingConfigurerSupport {
 
     /**
