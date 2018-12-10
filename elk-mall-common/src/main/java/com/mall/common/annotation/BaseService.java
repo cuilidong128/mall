@@ -1,7 +1,13 @@
 package com.mall.common.annotation;
 
+import java.lang.annotation.*;
+
 /**
- * Created by cuilidong on 2018/12/9.
+ * 初始化继承BaseService的service
+ * Created by shuzheng on 2017/2/11.
  */
-public interface BaseService {
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface BaseService {
 }
