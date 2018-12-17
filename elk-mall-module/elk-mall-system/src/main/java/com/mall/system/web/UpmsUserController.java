@@ -54,7 +54,7 @@ public class UpmsUserController extends BaseController {
                 UpmsUser upmsUser = (UpmsUser) object.get("user");
                 System.out.println("name redisUser ---> "+ upmsUser.getRealname());
             }
-            //System.out.println(" memory ---> ");
+            System.out.println(" memory ---> ");
 
            //UpmsUser redisUser =  (UpmsUser)redisTemplate.opsForValue().get("k_user_object");
 //            cache.cacheValue("name",user);
