@@ -52,15 +52,15 @@ public final class CacheFactory {
 
                         break;
 //                    case REDIS:
-//                        cacheClass = (Class<Cache>) Class.forName("org.b3log.latke.cache.redis.RedisCache");
+//                        cacheClass = (Class<Cache>) Class.forName("**.RedisCache");
 //
 //                        break;
-//                    case NONE:
-//                        cacheClass = (Class<Cache>) Class.forName("org.b3log.latke.cache.NoneCache");
-//
-//                        break;
+                    case NONE:
+                       cacheClass = (Class<Cache>) Class.forName("com.mall.system.cache.NoneCache");
+
+                        break;
                     default:
-                        throw new RuntimeException("Latke runs in the hell.... Please set the environment correctly");
+                        throw new RuntimeException("mall runs in the hell.... Please set the environment correctly");
                 }
 
                 ret = cacheClass.newInstance();
