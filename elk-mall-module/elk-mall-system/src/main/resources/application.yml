@@ -1,6 +1,11 @@
 spring:
   profiles:
     active: dev,redis
+   #mvc配置
+  mvc:
+    view:
+      prefix: /WEB-INF/sso/
+      suffix: .jsp
 ###指定扫描日志配置 redis,activemq
 # debug: true
 logging:
