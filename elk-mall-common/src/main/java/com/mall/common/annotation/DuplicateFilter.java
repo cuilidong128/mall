@@ -1,7 +1,15 @@
 package com.mall.common.annotation;
 
+
+import java.lang.annotation.*;
+
 /**
- * Created by cuilidong on 2018/12/22.
+ *  防止表单重复提交过滤
  */
-public interface DuplicateFilter {
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface DuplicateFilter {
+
+    boolean check() default true;
 }

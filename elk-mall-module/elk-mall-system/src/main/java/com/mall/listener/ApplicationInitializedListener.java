@@ -1,7 +1,21 @@
 package com.mall.listener;
 
+import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 /**
- * Created by cuilidong on 2018/12/22.
+ * spring 容器启动后加载@
+ *
  */
-public class ApplicationInitializedListener {
+@Component
+public  class  ApplicationInitializedListener {
+    Logger logger = LoggerFactory.getLogger(getClass());
+    @PostConstruct
+    public  void loadEnttyMapper(){
+        logger.info("spring容器启动完毕");
+    }
+
 }

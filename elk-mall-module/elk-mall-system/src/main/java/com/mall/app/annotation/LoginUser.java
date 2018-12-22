@@ -1,7 +1,15 @@
 package com.mall.app.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * Created by cuilidong on 2018/12/22.
+ * 登录用户信息
  */
-public interface LoginUser {
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LoginUser {
+
 }
