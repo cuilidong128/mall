@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mall.system.dao.SysRoleDeptDao">
+<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mall.system.model.SysRoleDept" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roleId" column="role_id" jdbcType="BIGINT"/>
+        <result property="deptId" column="dept_id" jdbcType="BIGINT"/>
+    </resultMap>
+	<insert id="save">
+		insert into sys_role_dept
+		(
+			`role_id`, 
+			`dept_id`
+		)
+		values
+		<foreach collection="deptIdList" item="item" index="index" separator="," >
+		(
+			#{roleId}, 
+			#{item} 
+		)
+		</foreach>
+	</insert>
+	
+	<delete id="delete">
+		delete from sys_role_dept where role_id = #{value}
+	</delete>
+	
+	<select id="queryDeptIdList" resultType="long">
+		select dept_id from sys_role_dept where role_id = #{value}
+	</select>
+
+
+	<select id="queryDetpIdLists" >
+		select dept_id from sys_role_dept where dept_id in
+		<foreach item="deptId" collection="parentIds" open="(" separator="," close=")">
+			#{deptId}
+		</foreach>	
+	</select>
+</mapper>

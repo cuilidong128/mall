@@ -1,171 +1,69 @@
 package com.mall.common.base.service;
 
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import java.util.Map;
 
-public interface BaseService<Record, Example>{
-    /**
-     * 根据条件查询记录数量
-     * @param example
-     * @return
-     */
-    int countByExample(Example example);
+import com.mall.common.util.Page;
 
-    /**
-     * 根据条件删除记录
-     * @param example
-     * @return
-     */
-    int deleteByExample(Example example);
+/**
+ * service基础接口
+ */
+public interface BaseService<T> {
 
     /**
-     * 根据主键删除记录
-     * @param id
-     * @return
+     * 删除
      */
-    int deleteByPrimaryKey(Integer id);
+
+    public void delete(Object id);
 
     /**
-     * 插入记录
-     * @param record
-     * @return
+     * 更新
      */
-    int insert(Record record);
+    public void update(T obj);
 
     /**
-     * 插入记录有效字段
-     * @param record
-     * @return
+     * 批量删除
      */
-    int insertSelective(Record record);
+    public void deleteBatch(Object[] ids);
 
     /**
-     * 根据条件查询记录，附带BLOB字段
-     * @param example
-     * @return
+     * 保存
      */
-    List<Record> selectByExampleWithBLOBs(Example example);
+    public void save(T obj);
 
     /**
-     * 根据条件查询记录
-     * @param example
-     * @return
+     * 条件查询总数
      */
-    List<Record> selectByExample(Example example);
+    public int queryTotal(Map<String, Object> map);
 
     /**
-     * 根据条件查询记录并按页码分页，附带BLOB字段
-     * @param example 条件
-     * @param pageNum 页数
-     * @param pageSize 每页记录数
-     * @return
+     * 查询总数
      */
-    List<Record> selectByExampleWithBLOBsForStartPage(Example example, Integer pageNum, Integer pageSize);
+    public int queryTotal();
 
     /**
-     * 根据条件查询记录并按页码分页
-     * @param example 条件
-     * @param pageNum 页数
-     * @param pageSize 每页记录数
-     * @return
+     * 根据ID，查询
      */
-    List<Record> selectByExampleForStartPage(Example example, Integer pageNum, Integer pageSize);
+    public T queryObject(Long id);
 
     /**
-     * 根据条件查询记录并按最后记录数分页，附带BLOB字段
-     * @param example 条件
-     * @param offset 跳过数量
-     * @param limit 查询数量
-     * @return
+     * 根据ID，查询
      */
-    List<Record> selectByExampleWithBLOBsForOffsetPage(Example example, Integer offset, Integer limit);
+    public T queryObject(Object id);
 
     /**
-     * 根据条件查询记录并按最后记录数分页
-     * @param example 条件
-     * @param offset 跳过数量
-     * @param limit 查询数量
-     * @return
+     * 参数条件查询列表
      */
-    List<Record> selectByExampleForOffsetPage(Example example, Integer offset, Integer limit);
+    public  List<T> queryList(Map<String, Object> map);
 
     /**
-     * 根据条件查询第一条记录
-     * @param example
-     * @return
+     * 分页查询列表
      */
-    Record selectFirstByExample(Example example);
+    public Page getPage(Map<String, Object> map);
 
     /**
-     * 根据条件查询第一条记录，附带BLOB字段
-     * @param example
-     * @return
+     * 根据ids批量查询
      */
-    Record selectFirstByExampleWithBLOBs(Example example);
-
-    /**
-     * 根据主键查询记录
-     * @param id
-     * @return
-     */
-    Record selectByPrimaryKey(Integer id);
-
-    /**
-     * 根据条件更新有效字段
-     * @param record
-     * @param example
-     * @return
-     */
-    int updateByExampleSelective(@Param("record") Record record, @Param("example") Example example);
-
-    /**
-     * 根据条件更新记录有效字段，附带BLOB字段
-     * @param record
-     * @param example
-     * @return
-     */
-    int updateByExampleWithBLOBs(@Param("record") Record record, @Param("example") Example example);
-
-    /**
-     * 根据条件更新记录
-     * @param record
-     * @param example
-     * @return
-     */
-    int updateByExample(@Param("record") Record record, @Param("example") Example example);
-
-    /**
-     * 根据主键更新记录有效字段
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKeySelective(Record record);
-
-    /**
-     * 根据主键更新记录，附带BLOB字段
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKeyWithBLOBs(Record record);
-
-    /**
-     * 根据主键更新记录
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKey(Record record);
-
-    /**
-     * 根据主键批量删除记录
-     * @param ids
-     * @return
-     */
-    int deleteByPrimaryKeys(String ids);
-
-    /**
-     * 初始化mapper
-     */
-    void initMapper();
+    public List<T> queryBatch(Object[] ids);
 
 }

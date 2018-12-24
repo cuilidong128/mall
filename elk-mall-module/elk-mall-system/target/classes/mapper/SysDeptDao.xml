@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mall.system.dao.SysDeptDao">
+<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mall.system.model.SysDept" id="BaseResultMap">
+       <result property="deptId" column="dept_id" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+        <result property="manager" column="manager" jdbcType="INTEGER"/>
+        <result property="delFlag" column="del_flag" jdbcType="BOOLEAN"/>
+    </resultMap>
+	<select id="queryObject" resultType="com.mall.system.model.SysDept">
+		select * from sys_dept where dept_id = #{value} and del_flag = 0
+	</select>
+
+	<select id="queryList" resultType="com.mall.system.model.SysDept">
+		select d.*,(select p.name from sys_dept p where p.dept_id = d.parent_id) as parentName
+		from sys_dept d where d.del_flag = 0
+		<!--  数据过滤  -->
+		${filterSql}
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by d.${sidx} ${order}
+            </when>
+			<otherwise>
+                order by d.order_num asc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	 
+	<insert id="save" parameterType="com.mall.system.model.SysDept" useGeneratedKeys="true" keyProperty="deptId">
+		insert into sys_dept
+		(
+			`parent_id`, 
+			`name`, 
+			`manager`, 
+			`order_num`
+		)
+		values
+		(
+			#{parentId}, 
+			#{name}, 
+			#{manager}, 
+			#{orderNum}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.mall.system.model.SysDept">
+		update sys_dept 
+		<set>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="manager != null">`manager` = #{manager}, </if>
+			<if test="orderNum != null">`order_num` = #{orderNum}</if>
+		</set>
+		where dept_id = #{deptId}
+	</update>
+	
+	<update id="delete">
+		update sys_dept set del_flag = -1 where dept_id = #{value}
+	</update>
+	
+	<select id="queryDeptIdList" resultType="long">
+		select dept_id from sys_dept where parent_id = #{value} and del_flag = 0
+	</select>
+	
+	<select id="queryParentDeptId" resultType="long">
+		select parent_id  from sys_dept where dept_id = #{value} and del_flag = 0
+	</select>
+
+</mapper>

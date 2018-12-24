@@ -6,16 +6,15 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import com.github.pagehelper.PageHelper;
-import com.mall.common.base.service.BaseService;
+import com.mall.common.base.service.IBaseService;
 import com.mall.common.db.DataSourceEnum;
 import com.mall.common.db.DynamicDataSource;
 import com.mall.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Record, Example> {
+public abstract class BaseServiceImpl<Mapper, Record, Example> implements IBaseService<Record, Example> {
     @Autowired
     Mapper mapper;
 

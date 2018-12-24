@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+<mapper namespace="com.mall.system.dao.SysConfigDao">
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mall.system.model.SysConfig" id="BaseResultMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="key" column="key" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="BOOLEAN"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+	<select id="queryObject" resultType="com.mall.system.model.SysConfig">
+		select * from sys_config where id = #{id}
+	</select>
+
+	<select id="queryList" parameterType="map"
+		resultType="com.mall.system.model.SysConfig">
+		select * from sys_config
+		<where>
+			<if test="key != null and key.trim() != ''">
+				and `key` like concat('%',#{key},'%')
+			</if>			
+		</where>
+		<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryTotal" parameterType="map" resultType="int">
+		select count(*) from sys_config
+		<where>
+			<if test="key != null and key.trim() != ''">
+				and `key` like concat('%',#{key},'%')
+			</if>
+		</where>
+	</select>
+	
+	<insert id="save" parameterType="com.mall.system.model.SysConfig">
+		insert into sys_config(`key`, `value`,`status`, remark)
+			values(#{key},#{value},#{status},#{remark})
+	</insert>
+	
+	<update id="update" parameterType="com.mall.system.model.SysConfig">
+		update sys_config set `key` = #{key}, `value` = #{value}, `status` = #{status}, remark = #{remark} 
+			 where id = #{id}
+	</update>
+	
+	<!-- 根据key，更新value -->
+	<update id="updateValueByKey" parameterType="map">
+		update sys_config set `value` = #{value} where `key` = #{key}
+	</update>
+
+	<!-- 根据key，查询value -->
+	<select id="queryByKey" parameterType="string" resultType="com.mall.system.model.SysConfig">
+		select * from sys_config where `key` = #{key} and status =true
+	</select>
+	
+	<delete id="deleteBatch" parameterType="int">
+		delete from sys_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	
+</mapper>

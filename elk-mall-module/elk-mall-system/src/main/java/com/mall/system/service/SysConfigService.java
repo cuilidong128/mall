@@ -1,0 +1,33 @@
+package com.mall.system.service;
+
+import com.mall.common.base.service.BaseService;
+import com.mall.system.model.SysConfig;
+
+/**
+ * 系统配置信息
+ * @author King chen
+ * @email 396885563@qq.com
+ * @date 2017年12月29日
+ */
+public interface SysConfigService extends BaseService<SysConfig> {
+
+    /**
+     * 根据key，更新value
+     */
+    public void updateValueByKey(String key, String value);
+
+    /**
+     * 根据key，获取配置的value值
+     *
+     * @param key           key
+     */
+    public String getValue(String key);
+
+    /**
+     * 根据key，获取value的Object对象
+     * @param key    key
+     * @param clazz  Object对象
+     */
+    public <T> T getConfigObject(String key, Class<T> clazz);
+
+}
