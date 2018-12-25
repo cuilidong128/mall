@@ -42,8 +42,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RestController
 @Api(value = "系统登录", description = "系统登录")
 public class SysLoginController extends AbstractController {
-    @Autowired
-    private Producer producer;
+//    @Autowired
+//    private Producer producer;
     @Autowired
     private SysUserService sysUserService;
     @Autowired
@@ -63,13 +63,13 @@ public class SysLoginController extends AbstractController {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         //生成文字验证码
-        String text = producer.createText();
+        //String text = producer.createText();
         //生成图片验证码
-        BufferedImage image = producer.createImage(text);
+        //BufferedImage image = producer.createImage(text);
         //保存到shiro session
-        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        //ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
         ServletOutputStream out = response.getOutputStream();
-        ImageIO.write(image, "jpg", out);
+        //ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
 
@@ -81,10 +81,10 @@ public class SysLoginController extends AbstractController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK",response=SysUser.class,responseContainer="sysUser"),@ApiResponse(code = 405, message = "输入登录信息不正确") })
     @PostMapping("/sys/login")
     public Map<String, Object> login(String username, String password, String captcha)throws IOException {
-        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-        if(captcha==null || !captcha.equalsIgnoreCase(kaptcha)){
-            return JsonResponse.error(405,"验证码不正确");
-        }
+//        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+//        if(captcha==null || !captcha.equalsIgnoreCase(kaptcha)){
+//            return JsonResponse.error(405,"验证码不正确");
+//        }
         SysUser user = sysUserService.queryByUserName(username);
         String PW=user!=null?new Sha256Hash(password, user.getSalt()).toHex():null;
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
@@ -137,8 +137,9 @@ public class SysLoginController extends AbstractController {
         }
         JsonResponse r =new JsonResponse();
         String sessionId =HttpContextUtils.getHttpServletRequest().getSession().getId();
-        String rawKey =RedisKeys.getReqId(SecurityUtil.encryptSHA(sessionId+ kaptcha));
-        Boolean exsit =redisUtils.luaScript_Setnx(rawKey,rawKey,rawKey);
+//        String rawKey =RedisKeys.getReqId(SecurityUtil.encryptSHA(sessionId+ kaptcha));
+        Boolean exsit = true;
+                //redisUtils.luaScript_Setnx(rawKey,rawKey,rawKey);
         if (exsit) {
             r.put("msg", "请不要重复点击登录");
             r.put("code",500);

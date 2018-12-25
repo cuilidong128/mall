@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @SpringBootApplication
 @EnableAutoConfiguration
 @MapperScan(value = "com.mall.system.dao")
-@ComponentScan(basePackages = "com.mall.system,com.mall.common.base.service") //com.mall.common.base.service
+@ComponentScan(basePackages = "com.mall.system,com.mall.common.base.service,com.mall.utils,com.mall.common.util") //com.mall.common.base.service
 public class Application extends SpringBootServletInitializer {
 
     private static final Logger lg = LoggerFactory.getLogger(Application.class);
