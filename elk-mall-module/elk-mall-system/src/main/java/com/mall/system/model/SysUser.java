@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -27,14 +28,15 @@ public class SysUser implements Serializable {
      */
     @Id
     @ApiModelProperty("用户id")
-    //@PropertyExt(isExport=false)
+    @Column(name = "user_id")
+    @PropertyExt(isExport=false)
     private Long userId;
 
     /**
      * 用户名
      */
     @ApiModelProperty("用户名")
-   // @NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
     @Length(max=20)
     @PropertyExt
     private String username;
@@ -42,14 +44,14 @@ public class SysUser implements Serializable {
     /**
      * 密码
      */
-//	@ApiModelProperty("密码")
+	@ApiModelProperty("密码")
     @NotBlank(message="密码不能为空", groups = AddGroup.class)
     private String password;
 
     /**
      * 盐
      */
-//	@ApiModelProperty("盐")
+	@ApiModelProperty("盐")
     private String salt;
 
     /**

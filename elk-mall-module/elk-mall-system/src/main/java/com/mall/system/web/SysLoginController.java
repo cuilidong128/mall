@@ -85,6 +85,14 @@ public class SysLoginController extends AbstractController {
 //        if(captcha==null || !captcha.equalsIgnoreCase(kaptcha)){
 //            return JsonResponse.error(405,"验证码不正确");
 //        }
+        redisUtils.set("username","cuilidong");
+        //redisUtils.get("username");
+        //redisUtils.exsit("username");
+
+        logger.info("redis get" +redisUtils.get("username"));
+        logger.info("redis exsit" +redisUtils.exsit("username"));
+        redisUtils.delete("username");
+
         SysUser user = sysUserService.queryByUserName(username);
         String PW=user!=null?new Sha256Hash(password, user.getSalt()).toHex():null;
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
@@ -138,7 +146,7 @@ public class SysLoginController extends AbstractController {
         JsonResponse r =new JsonResponse();
         String sessionId =HttpContextUtils.getHttpServletRequest().getSession().getId();
 //        String rawKey =RedisKeys.getReqId(SecurityUtil.encryptSHA(sessionId+ kaptcha));
-        Boolean exsit = true;
+        Boolean exsit = false;
                 //redisUtils.luaScript_Setnx(rawKey,rawKey,rawKey);
         if (exsit) {
             r.put("msg", "请不要重复点击登录");

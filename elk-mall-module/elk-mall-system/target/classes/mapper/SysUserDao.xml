@@ -4,14 +4,14 @@
 <mapper namespace="com.mall.system.dao.SysUserDao">
 <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.mall.system.model.SysUser" id="BaseResultMap">
-       <result property="userId" column="user_id" jdbcType="BIGINT"/>
+       <result property="userId" column="user_id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
         <result property="salt" column="salt" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="BOOLEAN"/>
-        <result property="deptId" column="dept_id" jdbcType="BIGINT"/>
+        <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
         <result property="position" column="position" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="DATE"/>
     </resultMap>
@@ -86,7 +86,7 @@
 	</select>
 	
 	<select id="queryByUserName" resultType="com.mall.system.model.SysUser">
-		select * from sys_user where username = #{username}
+		select user_id AS userId, username, password, salt, realname, mobile, email, position, dept_id AS deptId, deptName, status from sys_user where username = #{username}
 	</select>
 	
 	<insert id="save" parameterType="com.mall.system.model.SysUser" useGeneratedKeys="true" keyProperty="userId">

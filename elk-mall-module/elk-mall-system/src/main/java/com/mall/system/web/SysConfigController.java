@@ -54,10 +54,15 @@ public class SysConfigController extends AbstractController {
     @Log("保存配置")
     @ApiOperation(value = "保存配置",response=Response.class, notes = "权限编码（sys:config:save）")
     @PostMapping("/save")
-    @RequiresPermissions("sys:config:save")
-    @DuplicateFilter(check=true)
+    //@RequiresPermissions("sys:config:save")
+    //@DuplicateFilter(check=true)
     public JsonResponse save(@RequestBody(required = false) SysConfig config){
         ValidatorUtils.validateEntity(config);
+        SysConfig cof = new SysConfig();
+        cof.setKey("pay");
+        cof.setValue("支付");
+        cof.setStatus(true);
+        cof.setRemark("支付组件");
         sysConfigService.save(config);
         return JsonResponse.success();
     }
