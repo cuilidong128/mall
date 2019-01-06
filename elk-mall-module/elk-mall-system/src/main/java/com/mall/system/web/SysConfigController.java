@@ -29,7 +29,7 @@ public class SysConfigController extends AbstractController {
      */
     @ApiOperation(value = "配置列表",response=Response.class, notes = "权限编码（sys:config:list）")
     @GetMapping("/list")
-    @RequiresPermissions("sys:config:list")
+    //@RequiresPermissions("sys:config:list")
     public JsonResponse list(@RequestParam Map<String, Object> params){
         Query query = new Query(params,SysConfig.class);
         Page page = sysConfigService.getPage(query);
@@ -42,7 +42,7 @@ public class SysConfigController extends AbstractController {
      */
     @ApiOperation(value = "配置信息",response=Response.class, notes = "权限编码（sys:config:info）")
     @GetMapping("/info/{id}")
-    @RequiresPermissions("sys:config:info")
+    //@RequiresPermissions("sys:config:info")
     public JsonResponse info(@PathVariable("id") Object id){
         SysConfig config = sysConfigService.queryObject(id);
         return JsonResponse.success(config);
