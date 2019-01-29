@@ -15,6 +15,8 @@
     <modules>
         <module>elk-mall-system</module>
         <module>elk-mall-customer</module>
+        <module>elk-mall-business</module>
+        <module>elk-mall-sales</module>
     </modules>
 
 
