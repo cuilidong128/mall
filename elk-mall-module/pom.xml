@@ -17,6 +17,7 @@
         <module>elk-mall-customer</module>
         <module>elk-mall-business</module>
         <module>elk-mall-sales</module>
+        <module>elk-mall-forum</module>
     </modules>
 
 
