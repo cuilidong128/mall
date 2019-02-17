@@ -11,5 +11,14 @@
 
     <artifactId>elk-mall-logging</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.elk.mall</groupId>
+            <artifactId>elk-mall-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+
 
 </project>

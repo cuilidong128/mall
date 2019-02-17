@@ -1,17 +1,17 @@
 package com.mall.forum.modle;
 
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
-
-@Entity
+@Data
+@ToString
 @Table(name = "jforum_users")
 public class User implements Serializable {
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "jforum_users_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "sequence")
     @Column(name = "user_id")
     private int id;
 
@@ -64,8 +64,7 @@ public class User implements Serializable {
     private Date registrationDate;
 
 
-    @JoinColumn(name = "avatar_id", referencedColumnName = "id")
-    private Integer avatar_id;
+    private Avatar avatar;
 
     @Column(name = "user_email")
     private String email;
@@ -112,8 +111,8 @@ public class User implements Serializable {
     @Column(name = "user_viewemail")
     private boolean viewEmailEnabled = true;
 
-    @Column(name = "jforum_user_groups")
-    private Integer groupsId;
+    //@ManyToMany
+    private List<Group> groups = new ArrayList<Group>();
 
     @Column(name = "user_active")
     private boolean active = true;

@@ -1,7 +1,6 @@
 package com.mall.forum.modle;
 
-/**
- * Created by cuilidong on 2019/2/6.
- */
-public class AvatarType {
+public enum AvatarType {
+    AVATAR_UPLOAD,
+    AVATAR_GALLERY
 }

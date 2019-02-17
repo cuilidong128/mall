@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableAutoConfiguration
 @MapperScan(value = "com.mall.forum.dao")
-@ComponentScan(basePackages = "com.mall.forum,com.mall.common.base.service,com.mall.utils,com.mall.common.util")
+@ComponentScan(basePackages = "com.mall.forum,com.mall.common.base.service,com.mall.utils,com.mall.common.util,com.mall.common.aspect")
 public class Application extends SpringBootServletInitializer {
 
     private static final Logger lg = LoggerFactory.getLogger(Application.class);

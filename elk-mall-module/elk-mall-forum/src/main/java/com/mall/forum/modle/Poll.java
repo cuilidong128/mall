@@ -1,7 +1,106 @@
 package com.mall.forum.modle;
 
-/**
- * Created by cuilidong on 2019/2/9.
- */
-public class Poll {
+import lombok.Data;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+@Data
+@Entity
+@ToString
+@Table(name = "jforum_vote_desc")
+public class Poll implements Serializable {
+    @Id
+    @SequenceGenerator(name = "sequence", sequenceName = "jforum_vote_desc_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "sequence")
+    @Column(name = "vote_id")
+    private int id;
+
+    @Column(name = "vote_text")
+    private String label;
+
+    @Column(name = "vote_start")
+    private Date startDate;
+
+    @OneToMany(mappedBy = "poll")
+    private List<PollOption> options = new ArrayList<PollOption>();
+
+    @Column(name = "vote_length")
+    private int length;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public List<PollOption> getOptions() {
+        return options;
+    }
+
+    public int getTotalVotes() {
+        int votes = 0;
+
+        for (PollOption option : this.options) {
+            votes += option.getVoteCount();
+        }
+
+        return votes;
+    }
+
+    public boolean isOpen() {
+        if (this.length == 0) {
+            return true;
+        }
+
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTime(startDate);
+        endTime.add(Calendar.DAY_OF_YEAR, this.length);
+
+        return System.currentTimeMillis() < endTime.getTimeInMillis();
+    }
+
+    /**
+     * @param options the options to set
+     */
+    public void setOptions(List<PollOption> options) {
+        this.options = options;
+    }
+
+    /**
+     * @param length the length to set
+     */
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength() {
+        return length;
+    }
 }

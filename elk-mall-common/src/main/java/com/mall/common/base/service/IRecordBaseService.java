@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface IBaseService<Record, Example>{
+public interface IRecordBaseService<Record, Example>{
     /**
      * 根据条件查询记录数量
      * @param example

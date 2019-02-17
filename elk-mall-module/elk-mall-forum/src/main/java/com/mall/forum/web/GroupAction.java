@@ -31,10 +31,9 @@ public class GroupAction {
      * 所有配置列表
      */
     @GetMapping("/list")
-
-    public void list(){
-
-        List<Group> list = groupService.selectAll();
+    public List<Group> list(){
+        return groupService.selectAll();
 
     }
+
 }

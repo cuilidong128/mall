@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by cuilidong on 2019/2/2.
  */
-@Service("shiroService")
+@Service("groupService")
 public class GroupServiceImpl implements GroupService{
 
     @Autowired

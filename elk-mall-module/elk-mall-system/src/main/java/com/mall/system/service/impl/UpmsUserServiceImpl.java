@@ -1,7 +1,7 @@
 package com.mall.system.service.impl;
 
 import com.mall.common.annotation.BaseService;
-import com.mall.common.base.service.impl.BaseServiceImpl;
+import com.mall.common.base.service.impl.RecordBaseServiceImpl;
 import com.mall.system.dao.UpmsUserMapper;
 import com.mall.system.model.UpmsUser;
 import com.mall.system.model.UpmsUserExample;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @BaseService
 @CacheConfig(cacheNames = "UpmsUserServiceImpl")
-public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUser, UpmsUserExample> implements UpmsUserService {
+public class UpmsUserServiceImpl extends RecordBaseServiceImpl<UpmsUserMapper, UpmsUser, UpmsUserExample> implements UpmsUserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UpmsUserServiceImpl.class);
 

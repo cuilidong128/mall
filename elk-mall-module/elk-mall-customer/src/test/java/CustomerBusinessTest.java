@@ -15,7 +15,7 @@ public class CustomerBusinessTest {
         customer.setCustomerId(1);
         customer.setCustomerName("崔立东");
         customer.setMoble("15810324120");
-        customer.setMemberShipId(1);
+        //customer.setMemberShipId(1);
         customer.setCustomerPosition("北京");
         customer.setRegisterIpAddress("127.0.0.1");
         customer.setRegisterPort("80");

@@ -4,7 +4,7 @@ package com.mall.common.annotation;
 import java.lang.annotation.*;
 
 /**
- *  防止表单重复提交过滤
+ *  防止表单重复提交过滤 kingMicro
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

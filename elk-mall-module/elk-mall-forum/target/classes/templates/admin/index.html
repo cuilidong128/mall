@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>贴匠</title>
+    <style type="text/css">
+        .dashboard .mini-panel
+        {
+            margin-right:12px;
+            margin-bottom:12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>贴匠：发帖子的人</h1>
+    <div class="sidebar">
+        <div class="sidebar-toggle"><i class="fa fa-fw fa-dedent"></i></div>
+        <div id="mainMenu"></div>
+    </div>
+    <div class="main">
+        <div id="mainTabs" class="mini-tabs main-tabs" activeIndex="0" style="height:100%;width: 100%" plain="false"
+             buttons="#tabsButtons" arrowPosition="side">
+            <div name="index" iconCls="fa-android" title="首页">
+                <div class="mini-fix" >
+                    <div class="mini-clearfix dashboard" style="padding: 10px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tabsButtons">
+            <a title="切换到首页" class="tabsBtn go-index"><i class="fa fa-home"></i></a>
+            <a title="刷新当前页" class="tabsBtn reload-tab"><i class="fa fa-refresh"></i></a>
+            <a title="关闭当前页" class="tabsBtn remove-tab"><i class="fa fa-remove"></i></a>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

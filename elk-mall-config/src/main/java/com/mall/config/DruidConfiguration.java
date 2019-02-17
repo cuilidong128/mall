@@ -59,6 +59,7 @@ public class DruidConfiguration {
     @ConfigurationProperties(prefix = DB_PREFIX)
     class IDataSourceProperties {
         private String url;
+        private String salveUrl;
         private String username;
         private String password;
         private String driverClassName;
@@ -107,6 +108,39 @@ public class DruidConfiguration {
             datasource.setConnectionProperties(connectionProperties);
             return datasource;
         }
+
+        @Bean(name = "salveDataSource")
+        @Primary
+        public DataSource salveDataSource() {
+            DruidDataSource datasource = new DruidDataSource();
+            datasource.setUrl(salveUrl);
+            datasource.setUsername(username);
+            datasource.setPassword(password);
+            datasource.setDriverClassName(driverClassName);
+
+            // configuration
+            datasource.setInitialSize(initialSize);
+            datasource.setMinIdle(minIdle);
+            datasource.setMaxActive(maxActive);
+            datasource.setMaxWait(maxWait);
+            datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+            datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+            datasource.setValidationQuery(validationQuery);
+            datasource.setTestWhileIdle(testWhileIdle);
+            datasource.setTestOnBorrow(testOnBorrow);
+            datasource.setTestOnReturn(testOnReturn);
+            datasource.setPoolPreparedStatements(poolPreparedStatements);
+            datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+            try {
+                datasource.setFilters(filters);
+            } catch (SQLException e) {
+                System.err.println("druid configuration initialization filter: " + e);
+            }
+            datasource.setConnectionProperties(connectionProperties);
+            return datasource;
+        }
+
+
 
         public String getUrl() {
             return url;
@@ -252,6 +286,7 @@ public class DruidConfiguration {
             this.connectionProperties = connectionProperties;
         }
     }
+
 
 
 

@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class BaseServiceImpl<Mapper, Record, Example> implements IRecordBaseService<Record, Example> {
+public abstract class RecordBaseServiceImpl<Mapper, Record, Example> implements IRecordBaseService<Record, Example> {
     @Autowired
     Mapper mapper;
 

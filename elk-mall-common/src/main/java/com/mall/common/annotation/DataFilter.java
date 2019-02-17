@@ -3,7 +3,7 @@ package com.mall.common.annotation;
 import java.lang.annotation.*;
 
 /**
- *   数据权限过滤注解
+ *   数据权限过滤注解 kingMicro
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

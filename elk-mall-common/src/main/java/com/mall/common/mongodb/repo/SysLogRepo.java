@@ -1,7 +1,11 @@
 package com.mall.common.mongodb.repo;
 
+import com.mall.common.mongodb.model.SysLogVO;
+import com.mall.common.mongodb.mongo.BaseMongoRepository;
+
 /**
- * Created by cuilidong on 2019/2/16.
+ * 日志仓库接口
  */
-public class SysLogRepo {
+public interface SysLogRepo extends BaseMongoRepository<SysLogVO, String> {
+
 }

@@ -7,7 +7,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import java.lang.annotation.*;
 
 /**
- *  动态列展示、导出Excel
+ *  动态列展示、导出Excel kingMicro
  */
 @Target(value = { FIELD, METHOD, ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)

@@ -32,9 +32,9 @@
         SELECT COUNT(1) AS total FROM jforum_user_groups WHERE group_id = #{groupId}
     </select>
 
-    <update id="delete" >
+    <delete id="delete" >
         DELETE FROM jforum_groups WHERE group_id = #{groupId}
-    </update>
+    </delete>
 
     <update id="update" parameterType="com.mall.forum.modle.Group">
         UPDATE jforum_groups

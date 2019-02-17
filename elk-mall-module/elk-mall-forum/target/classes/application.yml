@@ -2,6 +2,19 @@ spring:
   profiles:
     active: dev
 
+  mvc:
+      static-path-pattern: /static/**
+      resources:
+         static-locations: file:./hsweb-ui/,file:./static/,/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/, classpath:/public/
+  http:
+      multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 120MB
+  thymeleaf:
+      prefix: classpath:/templates/
+      cache : false
+
 ###指定扫描日志配置 redis,activemq
 # debug: true
 logging:
@@ -18,4 +31,14 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+
+web:
+    app:
+      name: forum
+      version: 1.0-SNAPSHOT
+    cors:
+      allowed-headers: "*"
+      allowed-methods: "*"
+      allowed-origins: "*"
+      enable: true
 
