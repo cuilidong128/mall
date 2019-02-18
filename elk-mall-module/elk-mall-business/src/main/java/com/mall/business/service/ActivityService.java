@@ -5,4 +5,6 @@ package com.mall.business.service;
  * @date 2019/2/12 8:12
  */
 public interface ActivityService {
+
+    public  Long activityPartNumber(Integer memberId);
 }

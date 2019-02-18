@@ -5,6 +5,12 @@
 *.log
 
 # IntelliJ
+target/
+.settings/
+.classpath
+.project
+.logs/
+.log/
 *.iml
 *.ipr
 *.iws

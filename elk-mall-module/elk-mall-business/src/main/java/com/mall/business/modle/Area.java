@@ -45,4 +45,8 @@ public class Area {
      */
     private boolean common;
 
+
+
+
+
 }
