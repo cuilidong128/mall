@@ -16,6 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.mall.system.cache.CacheFactory;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 @Api(value = "用户管理", description = "用户管理")
 @RequestMapping("/manage/user")
@@ -95,6 +100,13 @@ public class UpmsUserController extends BaseController {
 
     @RequestMapping(value = "/index1", method = RequestMethod.GET)
     public void index1() {
+        List<Integer> integers = Arrays.asList(2, 4, 6, 8);
+        integers.forEach((x)->System.out.println("-----"+x));
+        integers.forEach(x->System.out.println("x"+x));
+        integers.forEach(x->{
+            x = x*18;
+            System.out.println("x"+x);
+        });
         long startTime=System.currentTimeMillis();
         UpmsUser user = upmsUserService.selectByPrimaryKey(1);
         long endTime=System.currentTimeMillis();

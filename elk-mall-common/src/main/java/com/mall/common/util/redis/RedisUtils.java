@@ -205,6 +205,9 @@ public class RedisUtils {
         return  redisTemplate.hasKey(hashKey);
     }
 
+    public Long inc(String key,Long growthLength){
+        return redisTemplate.opsForValue().increment(key, growthLength);
+    }
     /**
      * 小心用keys查询大量数据-否则引发cup过高
      * @param hashKey
@@ -256,4 +259,7 @@ public class RedisUtils {
     private <T> T fromJson(String json, Class<T> clazz){
         return gson.fromJson(json, clazz);
     }
+
+
+
 }

@@ -1,0 +1,9 @@
+diff a/elk-mall-module/pom.xml b/elk-mall-module/pom.xml	(rejected hunks)
+@@ -14,6 +14,7 @@
+     <packaging>pom</packaging>
+     <modules>
+         <module>elk-mall-system</module>
++        <module>elk-mall-customer</module>
+     </modules>
+ 
+ 
