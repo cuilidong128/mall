@@ -3,11 +3,18 @@ server:
 spring:
   ############  JDBC配置  ###################
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jforum?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
-    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password:
+  slaveDatasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName1: com.mysql.jdbc.Driver
+    url1: jdbc:mysql://localhost:3306/jforum_salve?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username1: root
+    password1: 123456
+
     ########### Druid 连接池配置  #############
     #连接池配置
     #Spring Boot中默认支持的连接池有dbcp,dbcp2, tomcat, hikari三种连接池,故需要特殊定制

@@ -26,4 +26,6 @@ public interface ConfigDao extends BaseDao<Config> {
     public void delete(@Param("configId") int configId);
 
 
+
+
 }
