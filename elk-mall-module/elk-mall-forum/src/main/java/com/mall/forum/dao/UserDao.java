@@ -1,10 +1,7 @@
 package com.mall.forum.dao;
 
 import com.mall.common.base.dao.BaseDao;
-import com.mall.forum.modle.Group;
-import com.mall.forum.modle.Post;
-import com.mall.forum.modle.Topic;
-import com.mall.forum.modle.User;
+import com.mall.forum.modle.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,7 +23,9 @@ public interface UserDao  extends BaseDao<User> {
 
     public int getTotalPosts(User user);
 
-    public User getByUsername(String username);
+    public User getByUsername(@Param("username") String username);
+
+    public User get(@Param("userId") int userId);
 
     public void changeAllowAvatarState(boolean allowAvatar, Group group);
 
@@ -47,4 +46,6 @@ public interface UserDao  extends BaseDao<User> {
     public List<Post> getPosts(User user, int start, int recordsPerPage);
 
     public List<Topic> getTopics(User user, int start, int recordsPerPage);
+
+    public int add(User user);
 }
