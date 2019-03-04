@@ -9,7 +9,7 @@ import com.mall.common.mongodb.mongo.BaseMongoRepositoryImpl;
  * 异常日志数据接口实现类
  */
 
-//@Repository
+@Repository
 public class ExceptionLogRepoImpl extends BaseMongoRepositoryImpl<ExceptionLogVO, String> implements ExceptionLogRepo {
 
 

@@ -7,11 +7,13 @@ import com.mall.common.exception.BusinessException;
 import com.mall.system.cache.Cache;
 import com.mall.system.cache.RedisTemplateCache;
 import com.mall.system.model.UpmsUser;
+import com.mall.system.model.UserEntity;
 import com.mall.system.service.UpmsUserService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.mall.system.cache.CacheFactory;
@@ -32,7 +34,8 @@ public class UpmsUserController extends BaseController {
     private UpmsUserService upmsUserService;
 
 
-    //private RedisTemplate redisTemplate;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Autowired
     private RedisTemplateCache cache;
@@ -113,4 +116,16 @@ public class UpmsUserController extends BaseController {
         LOGGER.info("程序运行时间： "+(endTime - startTime)+"ms");
     }
 
+    @RequestMapping(value = "/index2", method = RequestMethod.GET)
+    public void index2() {
+        long startTime=System.currentTimeMillis();
+//        UserEntity user = new UserEntity();
+//        user.setId(new Long(1));
+//        user.setUserName("cuilidong");
+//        user.setPassWord("111111");
+       // mongoTemplate.save(user);
+        UserEntity user = mongoTemplate.findById(new Long(1),UserEntity.class);
+        long endTime=System.currentTimeMillis();
+        LOGGER.info("程序运行时间： "+(endTime - startTime)+"ms");
+    }
 }

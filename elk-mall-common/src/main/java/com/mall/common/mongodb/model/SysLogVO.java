@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-//import org.springframework.data.mongodb.core.index.CompoundIndex;
-//import org.springframework.data.mongodb.core.index.CompoundIndexes;
-//import org.springframework.data.mongodb.core.index.Indexed;
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,11 +19,11 @@ import io.swagger.annotations.ApiModelProperty;
  * @date 2017年12月29日
  */
 
-//@Document(collection = "SysLogVO")
-//@CompoundIndexes({//模糊查询索引
-//        @CompoundIndex(name = "username_operation_method", def = "{'username': 1, 'operation': 1,'method': 1}"),
-//        @CompoundIndex(name = "ip_username_createDate", def = "{'ip': 1,'username': 1,'createDate': 1}")
-//})
+@Document(collection = "SysLogVO")
+@CompoundIndexes({//模糊查询索引
+        @CompoundIndex(name = "username_operation_method", def = "{'username': 1, 'operation': 1,'method': 1}"),
+        @CompoundIndex(name = "ip_username_createDate", def = "{'ip': 1,'username': 1,'createDate': 1}")
+})
 public class SysLogVO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,11 +33,11 @@ public class SysLogVO implements Serializable {
     private String method;
     private String params;
     private String result;
-    //@Indexed
+    @Indexed
     private String status;
     private Long time;
     private String ip;
-    //@Indexed
+    @Indexed
     private Date createDate;
     public String getId() {
         return id;

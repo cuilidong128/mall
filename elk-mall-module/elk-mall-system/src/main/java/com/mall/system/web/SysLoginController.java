@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
@@ -36,14 +37,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @Api(value = "系统登录", description = "系统登录")
 public class SysLoginController extends AbstractController {
-//    @Autowired
-//    private Producer producer;
+    @Autowired
+    private Producer producer;
     @Autowired
     private SysUserService sysUserService;
     @Autowired
@@ -63,13 +65,13 @@ public class SysLoginController extends AbstractController {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         //生成文字验证码
-        //String text = producer.createText();
+        String text = producer.createText();
         //生成图片验证码
-        //BufferedImage image = producer.createImage(text);
+        BufferedImage image = producer.createImage(text);
         //保存到shiro session
-        //ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
         ServletOutputStream out = response.getOutputStream();
-        //ImageIO.write(image, "jpg", out);
+        ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
 
@@ -81,30 +83,22 @@ public class SysLoginController extends AbstractController {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK",response=SysUser.class,responseContainer="sysUser"),@ApiResponse(code = 405, message = "输入登录信息不正确") })
     @PostMapping("/sys/login")
     public Map<String, Object> login(String username, String password, String captcha)throws IOException {
-//        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-//        if(captcha==null || !captcha.equalsIgnoreCase(kaptcha)){
-//            return JsonResponse.error(405,"验证码不正确");
-//        }
-        redisUtils.set("username","cuilidong");
-        //redisUtils.get("username");
-        //redisUtils.exsit("username");
-
-        logger.info("redis get" +redisUtils.get("username"));
-        logger.info("redis exsit" +redisUtils.exsit("username"));
-        redisUtils.delete("username");
-
+        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+        if(captcha==null || !captcha.equalsIgnoreCase(kaptcha)){
+            return JsonResponse.error(405,"验证码不正确");
+        }
         SysUser user = sysUserService.queryByUserName(username);
         String PW=user!=null?new Sha256Hash(password, user.getSalt()).toHex():null;
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         // 获取IP地址,如果出现登录卡顿请去掉
-        String ip = IPUtils.getIpAddr(request);
-        String userAgent= NetUtils.getUserAgent(request.getHeader("User-Agent"));
+        String ip =IPUtils.getIpAddr(request);
+        String userAgent=NetUtils.getUserAgent(request.getHeader("User-Agent"));
         String errorIPKey= RedisKeys.getErrorIPKey(ip, username);
         String value=redisUtils.get(errorIPKey);
         String errorKey= RedisKeys.getLoginKey(username);
         String errorValue=redisUtils.get(errorKey);
         if(value!=null && errorValue!=null) {//防通过代理ip方式暴力破解、限制同一ip错误数次/同一帐号错误次数
-            if(Integer.parseInt(value)>Constant.LOGIN_IP_COUNT || Integer.parseInt(value)> Constant.LOGIN_COUNT) {
+            if(Integer.parseInt(value)>Constant.LOGIN_IP_COUNT || Integer.parseInt(value)>Constant.LOGIN_COUNT) {
                 return JsonResponse.error(408,"错误次数过多！锁住30分钟,请稍后重试","连续输出登录错误次数过多！锁住30分钟、稍后重试。");
             }
         }
@@ -145,15 +139,14 @@ public class SysLoginController extends AbstractController {
         }
         JsonResponse r =new JsonResponse();
         String sessionId =HttpContextUtils.getHttpServletRequest().getSession().getId();
-//        String rawKey =RedisKeys.getReqId(SecurityUtil.encryptSHA(sessionId+ kaptcha));
-        Boolean exsit = false;
-                //redisUtils.luaScript_Setnx(rawKey,rawKey,rawKey);
+        String rawKey =RedisKeys.getReqId(SecurityUtil.encryptSHA(sessionId+ kaptcha));
+        Boolean exsit =redisUtils.luaScript_Setnx(rawKey,rawKey,rawKey);
         if (exsit) {
             r.put("msg", "请不要重复点击登录");
             r.put("code",500);
         }else{
             r= sysUserService.createToken(user.getUserId(),ip,userAgent);
-			/*token同步到网关-后面优化网关直接从redis中取token*/
+            /*token同步到网关-后面优化网关直接从redis中取token*/
             //new GatewayUtils().post_key_auth(JSONObject.parseObject(StringToolkit.getObjectString(r.get("data"))).getString("token"));
         }
 
@@ -174,5 +167,6 @@ public class SysLoginController extends AbstractController {
         ShiroUtils.logout();
         return JsonResponse.success(currentUser);
     }
+
 
 }

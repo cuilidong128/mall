@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -26,6 +29,15 @@ public class ConfigAction {
     @Autowired
     private JForumConfig config;
 
+    @PostMapping("/")
+    public ResponseEntity<HashMap<String, Object>> index() throws Exception {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("locales", this.loadLocaleNames());
+        map.put("config", this.config);
+        return Optional.ofNullable(map)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElse(new ResponseEntity<>(HttpStatus.CONFLICT));
+    }
 
     @PostMapping("/list")
     public ResponseMessage<Map<String, Object>> list() throws Exception {
@@ -46,14 +58,11 @@ public class ConfigAction {
 
     private List<String> loadLocaleNames() throws Exception {
         Properties locales = new Properties();
-
         locales.load(this.getClass().getResourceAsStream("/jforumConfig/languages/locales.properties"));
         List<String> localesList = new ArrayList<String>();
-
         for (Enumeration<?> e = locales.keys(); e.hasMoreElements();) {
             localesList.add((String) e.nextElement());
         }
-
         return localesList;
     }
 }

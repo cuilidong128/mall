@@ -35,3 +35,14 @@ spring:
 
 
 
+mongo:
+  hostport: 127.0.0.1:27017
+  connectionsPerHost: 200
+  mongo.threadsAllowedToBlockForConnectionMultiplier: 5
+  mongo.connectTimeout: 30000
+  mongo.maxWaitTime: 8000
+  mongo.socketKeepAlive: true
+  mongo.socketTimeout: 10000
+  mongo.dbname: admin
+  mongo.username: root
+  mongo.password:

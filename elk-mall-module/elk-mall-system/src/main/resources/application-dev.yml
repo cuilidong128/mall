@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: 8091
 spring:
   ############  JDBC配置  ###################
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/king_smp?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password:
@@ -33,5 +33,15 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
-
+mongo:
+  hostport: 127.0.0.1:27017
+  connectionsPerHost: 200
+  mongo.threadsAllowedToBlockForConnectionMultiplier: 5
+  mongo.connectTimeout: 30000
+  mongo.maxWaitTime: 8000
+  mongo.socketKeepAlive: true
+  mongo.socketTimeout: 10000
+  mongo.dbname: admin
+  mongo.username: root
+  mongo.password:
 

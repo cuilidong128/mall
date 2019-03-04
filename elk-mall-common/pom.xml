@@ -353,7 +353,7 @@
         </dependency>
 
         <!-- mongodb 驱动 -->
-        <!--
+
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
@@ -393,7 +393,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
--->
 
 
 

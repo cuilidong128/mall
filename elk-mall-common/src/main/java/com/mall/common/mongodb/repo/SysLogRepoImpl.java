@@ -9,7 +9,7 @@ import com.mall.common.mongodb.mongo.BaseMongoRepositoryImpl;
  * 日志数据接口实现类
  */
 
-//@Repository
+@Repository
 public class SysLogRepoImpl extends BaseMongoRepositoryImpl<SysLogVO, String> implements SysLogRepo {
 
 

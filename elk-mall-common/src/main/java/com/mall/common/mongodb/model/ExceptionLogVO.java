@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-//import org.springframework.data.mongodb.core.index.Indexed;
-//import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 异常日志信息
@@ -14,7 +14,7 @@ import org.springframework.data.annotation.Id;
  * @emai 396885563@qq.com
  * @date 2018年4月19日
  */
-//@Document(collection = "ExceptionLogVO")
+@Document(collection = "ExceptionLogVO")
 public class ExceptionLogVO implements Serializable{
 
     /**
@@ -24,12 +24,12 @@ public class ExceptionLogVO implements Serializable{
     @Id
     private String id;
     private String userCode;
-    //@Indexed
+    @Indexed
     private String seriaNo;
     private String appCode;
     private String logCode;
     private String apiName;
-    //@Indexed
+    @Indexed
     private Date createTime;
     private String inputData;
     private String outputData;

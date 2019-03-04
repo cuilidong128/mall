@@ -41,6 +41,26 @@
 
     </resultMap>
 
+    <select id="getByEmail" resultType="String">
+        SELECT username FROM jforum_users WHERE user_email = #{email}
+    </select>
+
+
+    <select id="isUsernameAvailable" resultType="java.lang.Integer">
+        SELECT COUNT(1) AS valid FROM jforum_users WHERE username = #{username} OR user_email = #{email}
+    </select>
+
+    <select id="getTotalUnreadPrivateMessages" resultType="java.lang.Integer">
+        SELECT COUNT(1) AS private_messages
+        FROM jforum_privmsgs pm WHERE pm.privmsgs_type = 1
+        AND pm.privmsgs_to_userid = #{userId}
+    </select>
+
+    <select id="getTotalPosts" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM jforum_posts p WHERE p.user_id = #{userId}
+    </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
         SELECT user_email, user_id, user_posts, user_regdate, username, deleted, user_karma, user_from,
 	user_website, user_viewemail FROM jforum_users ORDER BY user_id
@@ -69,14 +89,11 @@
      SELECT COUNT(1) FROM jforum_user_groups WHERE group_id = #{groupId}
     </select>
 
-
-    <select id="getTotalUnreadPrivateMessages" resultType="java.lang.Integer">
-           SELECT COUNT(pm.privmsgs_to_userid) AS private_messages, u.*
-    FROM jforum_users u
-    LEFT JOIN jforum_privmsgs pm ON pm.privmsgs_type = 1 AND pm.privmsgs_to_userid = u.user_id
-    WHERE u.user_id = #{userId}
-    GROUP BY pm.privmsgs_to_userid
+    <select id="getByUsername" resultMap="BaseResultMap">
+        SELECT *  FROM jforum_users WHERE username = #{username}
     </select>
+
+
 
 
     <update id="saveUserAuthHash">
@@ -152,15 +169,8 @@
     </select>
 
 
-    <select id="isUsernameAvailable" resultType="java.lang.Integer">
-        SELECT COUNT(1) AS valid FROM jforum_users WHERE username = #{username} OR user_email = #{email}
-    </select>
 
 
-    <select id="findByUserName" resultMap="BaseResultMap">
-      SELECT user_id, username, user_email, deleted FROM jforum_users WHERE
-      UPPER(username) LIKE UPPER('%',#{name},'%')
-    </select>
 
 
     <select id="validateLogin" resultMap="BaseResultMap">
@@ -175,9 +185,7 @@
        SELECT * FROM jforum_users WHERE LOWER(username) = LOWER(?)
     </select>
 
-    <select id="getUsernameByEmail" resultType="String">
-        SELECT username FROM jforum_users WHERE user_email = #{email}
-    </select>
+
 
 
     <update id="updateUser" parameterType="com.mall.forum.modle.Config">
