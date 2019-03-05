@@ -109,6 +109,11 @@
     </select>
 
 
+    <select id="get" resultType="User">
+        SELECT * FROM jforum_users WHERE user_id = #{userId}
+    </select>
+
+
     <update id="deletedStatus" >
         UPDATE jforum_users
         <set>

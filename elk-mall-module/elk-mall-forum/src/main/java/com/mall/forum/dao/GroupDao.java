@@ -21,4 +21,12 @@ public interface GroupDao extends BaseDao<Group>{
     public int update(Group group);
 
     public int addNew(Group group);
+
+    /**
+     * 待开发
+     * @param groupName
+     * @return
+     */
+
+    public Group getByName(String groupName);
 }

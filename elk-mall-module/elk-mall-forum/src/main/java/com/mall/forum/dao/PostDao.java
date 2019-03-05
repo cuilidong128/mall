@@ -8,4 +8,6 @@ import com.mall.forum.modle.Post;
  */
 public interface PostDao extends BaseDao<Post> {
 
+
+    public int countPreviousPosts(int postId);
 }

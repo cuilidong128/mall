@@ -3,6 +3,7 @@ package com.mall.forum.dao;
 import com.mall.common.base.dao.BaseDao;
 import com.mall.forum.modle.Attachment;
 import com.mall.forum.modle.Category;
+import com.mall.forum.modle.Forum;
 import com.mall.forum.modle.Group;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,5 +28,12 @@ public interface CategoryDao extends BaseDao<Category> {
     public void delete(@Param("categoryId") int categoryId);
 
     public int getMaxOrder();
+
+
+    /**
+     * 待开发
+     * @return
+     */
+    public  List<Forum> getForums(@Param("categoryId") int categoryId) ;
 
 }

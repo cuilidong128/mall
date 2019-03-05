@@ -3,6 +3,8 @@ package com.mall.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import lombok.Data;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,6 +23,8 @@ import java.sql.SQLException;
  * @author Leon
  * @version 2018/6/13 22:21
  */
+
+@Data
 @Configuration
 public class DruidConfiguration {
 
@@ -33,7 +37,7 @@ public class DruidConfiguration {
      * Datasource prefix
      */
     private static final String DB_PREFIX = "spring.datasource";
-
+    private static final String DB_PREFIX_SLAVE = "spring.slaveDatasource";
     @Bean
     public ServletRegistrationBean druidServlet() {
         lg.info("初始化 -> [{}]"," Druid Servlet Configuration Start ");
@@ -57,9 +61,9 @@ public class DruidConfiguration {
     }
 
     @ConfigurationProperties(prefix = DB_PREFIX)
-    class IDataSourceProperties {
+    class IMasterDataSourceProperties {
+
         private String url;
-        private String salveUrl;
         private String username;
         private String password;
         private String driverClassName;
@@ -78,8 +82,8 @@ public class DruidConfiguration {
         private String filters;
         private String connectionProperties;
 
-        @Bean(name = "masterDataSource")
         @Primary
+        @Bean(name = "masterDataSource")
         public DataSource dataSource() {
             DruidDataSource datasource = new DruidDataSource();
             datasource.setUrl(url);
@@ -108,38 +112,6 @@ public class DruidConfiguration {
             datasource.setConnectionProperties(connectionProperties);
             return datasource;
         }
-
-        @Bean(name = "salveDataSource")
-        @Primary
-        public DataSource salveDataSource() {
-            DruidDataSource datasource = new DruidDataSource();
-            datasource.setUrl(salveUrl);
-            datasource.setUsername(username);
-            datasource.setPassword(password);
-            datasource.setDriverClassName(driverClassName);
-
-            // configuration
-            datasource.setInitialSize(initialSize);
-            datasource.setMinIdle(minIdle);
-            datasource.setMaxActive(maxActive);
-            datasource.setMaxWait(maxWait);
-            datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-            datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-            datasource.setValidationQuery(validationQuery);
-            datasource.setTestWhileIdle(testWhileIdle);
-            datasource.setTestOnBorrow(testOnBorrow);
-            datasource.setTestOnReturn(testOnReturn);
-            datasource.setPoolPreparedStatements(poolPreparedStatements);
-            datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
-            try {
-                datasource.setFilters(filters);
-            } catch (SQLException e) {
-                System.err.println("druid configuration initialization filter: " + e);
-            }
-            datasource.setConnectionProperties(connectionProperties);
-            return datasource;
-        }
-
 
 
         public String getUrl() {
@@ -288,6 +260,203 @@ public class DruidConfiguration {
     }
 
 
+
+    @ConfigurationProperties(prefix = DB_PREFIX_SLAVE)
+    class ISlaveDataSourceProperties {
+        private String url1;
+        private String username1;
+        private String password1;
+        private String driverClassName1;
+        private int initialSize;
+        private int minIdle;
+        private int maxActive;
+        private int maxWait;
+        private int timeBetweenEvictionRunsMillis;
+        private int minEvictableIdleTimeMillis;
+        private String validationQuery;
+        private boolean testWhileIdle;
+        private boolean testOnBorrow;
+        private boolean testOnReturn;
+        private boolean poolPreparedStatements;
+        private int maxPoolPreparedStatementPerConnectionSize;
+        private String filters;
+        private String connectionProperties;
+
+        @Bean(name = "slaveDataSource")
+        public DataSource slaveDataSource() {
+            DruidDataSource datasource = new DruidDataSource();
+            datasource.setUrl(url1);
+            datasource.setUsername(username1);
+            datasource.setPassword(password1);
+            datasource.setDriverClassName(driverClassName1);
+
+            // configuration
+            datasource.setInitialSize(initialSize);
+            datasource.setMinIdle(minIdle);
+            datasource.setMaxActive(maxActive);
+            datasource.setMaxWait(maxWait);
+            datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+            datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+            datasource.setValidationQuery(validationQuery);
+            datasource.setTestWhileIdle(testWhileIdle);
+            datasource.setTestOnBorrow(testOnBorrow);
+            datasource.setTestOnReturn(testOnReturn);
+            datasource.setPoolPreparedStatements(poolPreparedStatements);
+            datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+            try {
+                datasource.setFilters(filters);
+            } catch (SQLException e) {
+                System.err.println("druid configuration initialization filter: " + e);
+            }
+            datasource.setConnectionProperties(connectionProperties);
+            return datasource;
+        }
+
+
+        public String getUrl() {
+            return url1;
+        }
+
+        public void setUrl(String url) {
+            this.url1 = url;
+        }
+
+        public String getUsername() {
+            return username1;
+        }
+
+        public void setUsername(String username) {
+            this.username1 = username;
+        }
+
+        public String getPassword() {
+            return password1;
+        }
+
+        public void setPassword(String password) {
+            this.password1 = password;
+        }
+
+        public String getDriverClassName() {
+            return driverClassName1;
+        }
+
+        public void setDriverClassName(String driverClassName) {
+            this.driverClassName1 = driverClassName;
+        }
+
+        public int getInitialSize() {
+            return initialSize;
+        }
+
+        public void setInitialSize(int initialSize) {
+            this.initialSize = initialSize;
+        }
+
+        public int getMinIdle() {
+            return minIdle;
+        }
+
+        public void setMinIdle(int minIdle) {
+            this.minIdle = minIdle;
+        }
+
+        public int getMaxActive() {
+            return maxActive;
+        }
+
+        public void setMaxActive(int maxActive) {
+            this.maxActive = maxActive;
+        }
+
+        public int getMaxWait() {
+            return maxWait;
+        }
+
+        public void setMaxWait(int maxWait) {
+            this.maxWait = maxWait;
+        }
+
+        public int getTimeBetweenEvictionRunsMillis() {
+            return timeBetweenEvictionRunsMillis;
+        }
+
+        public void setTimeBetweenEvictionRunsMillis(int timeBetweenEvictionRunsMillis) {
+            this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
+        }
+
+        public int getMinEvictableIdleTimeMillis() {
+            return minEvictableIdleTimeMillis;
+        }
+
+        public void setMinEvictableIdleTimeMillis(int minEvictableIdleTimeMillis) {
+            this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
+        }
+
+        public String getValidationQuery() {
+            return validationQuery;
+        }
+
+        public void setValidationQuery(String validationQuery) {
+            this.validationQuery = validationQuery;
+        }
+
+        public boolean isTestWhileIdle() {
+            return testWhileIdle;
+        }
+
+        public void setTestWhileIdle(boolean testWhileIdle) {
+            this.testWhileIdle = testWhileIdle;
+        }
+
+        public boolean isTestOnBorrow() {
+            return testOnBorrow;
+        }
+
+        public void setTestOnBorrow(boolean testOnBorrow) {
+            this.testOnBorrow = testOnBorrow;
+        }
+
+        public boolean isTestOnReturn() {
+            return testOnReturn;
+        }
+
+        public void setTestOnReturn(boolean testOnReturn) {
+            this.testOnReturn = testOnReturn;
+        }
+
+        public boolean isPoolPreparedStatements() {
+            return poolPreparedStatements;
+        }
+
+        public void setPoolPreparedStatements(boolean poolPreparedStatements) {
+            this.poolPreparedStatements = poolPreparedStatements;
+        }
+
+        public int getMaxPoolPreparedStatementPerConnectionSize() {
+            return maxPoolPreparedStatementPerConnectionSize;
+        }
+
+        public void setMaxPoolPreparedStatementPerConnectionSize(int maxPoolPreparedStatementPerConnectionSize) {
+            this.maxPoolPreparedStatementPerConnectionSize = maxPoolPreparedStatementPerConnectionSize;
+        }
+
+        public String getFilters() {
+            return filters;
+        }
+
+        public void setFilters(String filters) {
+            this.filters = filters;
+        }
+
+        public String getConnectionProperties() {
+            return connectionProperties;
+        }
+
+        public void setConnectionProperties(String connectionProperties) {
+            this.connectionProperties = connectionProperties;
+        }
+    }
 
 
 }
